@@ -1,5 +1,5 @@
 {
-  "name": "apk2",
+  "name": "apk1",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -20,5 +20,8 @@
     "@vitejs/plugin-react": "^6.0.3",
     "oxlint": "^1.71.0",
     "vite": "^8.1.1"
+  },
+  "engines": {
+    "node": ">=20.0.0"
   }
 }
