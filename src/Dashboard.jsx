@@ -33,7 +33,7 @@ function Dashboard() {
       setKeranjang(keranjang.filter((item) => item.id !== id));
     } else {
       setKeranjang(
-        keranjang.map((item) =>
+        getKeranjang = keranjang.map((item) =>
           item.id === id ? { ...item, jumlah: item.jumlah - 1 } : item
         )
       );
@@ -52,10 +52,10 @@ function Dashboard() {
     <div style={styles.container}>
       {/* NAVBAR */}
       <nav style={styles.navbar}>
-        <div style={styles.logo}>TokoKita</div>
+        <div style={styles.logo}>BlueStore</div>
         <input
           type="text"
-          placeholder="Cari produk di TokoKita..."
+          placeholder="Cari produk impianmu di sini..."
           value={cari}
           onChange={(e) => setCari(e.target.value)}
           style={styles.searchBar}
@@ -67,7 +67,7 @@ function Dashboard() {
       <div style={styles.main}>
         {/* DAFTAR PRODUK */}
         <div style={styles.produkSection}>
-          <h2>Dashboard Produk</h2>
+          <h2 style={styles.sectionTitle}>Katalog Produk</h2>
           <div style={styles.grid}>
             {produkDifilter.map((produk) => (
               <div key={produk.id} style={styles.card}>
@@ -82,22 +82,22 @@ function Dashboard() {
                 </div>
               </div>
             ))}
-            {produkDifilter.length === 0 && <p>Produk tidak ditemukan...</p>}
+            {produkDifilter.length === 0 && <p style={{ color: '#666' }}>Produk tidak ditemukan...</p>}
           </div>
         </div>
 
         {/* SIDEBAR KERANJANG */}
         <div style={styles.sidebar}>
-          <h3>Keranjang Belanja</h3>
+          <h3 style={styles.sidebarTitle}>Keranjang Belanja</h3>
           {keranjang.length === 0 ? (
-            <p style={{ color: '#888' }}>Wah, keranjangmu masih kosong.</p>
+            <p style={{ color: '#888', fontSize: '14px' }}>Keranjangmu masih kosong nih.</p>
           ) : (
             <>
               <div style={styles.listKeranjang}>
                 {keranjang.map((item) => (
                   <div key={item.id} style={styles.itemKeranjang}>
                     <div>
-                      <h5 style={{ margin: '0 0 4px 0' }}>{item.nama}</h5>
+                      <h5 style={{ margin: '0 0 4px 0', color: '#333' }}>{item.nama}</h5>
                       <span style={{ fontSize: '12px', color: '#666' }}>
                         {item.jumlah} x Rp {item.harga.toLocaleString('id-ID')}
                       </span>
@@ -111,10 +111,10 @@ function Dashboard() {
               </div>
               <hr style={{ borderColor: '#eee', margin: '15px 0' }} />
               <div style={styles.totalSection}>
-                <h4>Total:</h4>
-                <h3 style={{ color: '#d32f2f', margin: 0 }}>Rp {totalHarga.toLocaleString('id-ID')}</h3>
+                <h4 style={{ margin: 0, color: '#555' }}>Total:</h4>
+                <h3 style={{ color: '#2b6cb0', margin: 0 }}>Rp {totalHarga.toLocaleString('id-ID')}</h3>
               </div>
-              <button onClick={() => alert('Terima kasih sudah berbelanja!')} style={styles.btnCheckout}>
+              <button onClick={() => alert('Terima kasih sudah berbelanja di BlueStore!')} style={styles.btnCheckout}>
                 Checkout Sekarang
               </button>
             </>
@@ -125,33 +125,33 @@ function Dashboard() {
   );
 }
 
-// 2. INLINE STYLES
+// 2. INLINE STYLES (TEMA BIRU)
 const styles = {
-  container: { fontFamily: 'Arial, sans-serif', backgroundColor: '#f5f5f5', minHeight: '100vh', margin: 0 },
-  navbar: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#fff', padding: '15px 30px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', position: 'sticky', top: 0, zIndex: 100 },
-  logo: { fontSize: '24px', fontWeight: 'bold', color: '#2ecc71' },
-  searchBar: { width: '40%', padding: '8px 15px', borderRadius: '20px', border: '1px solid #ddd', outline: 'none' },
-  cartIcon: { fontSize: '16px', fontWeight: 'bold' },
-  main: { display: 'flex', padding: '20px', gap: '20px', maxWidth: '1200px', margin: '0 auto' },
-  produkSection: { flex: 3 },
+  container: { fontFamily: 'Arial, sans-serif', backgroundColor: '#f0f4f8', minHeight: '100vh', margin: 0 },
+  navbar: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#1e3a8a', padding: '15px 30px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)', position: 'sticky', top: 0, zIndex: 100 },
+  logo: { fontSize: '24px', fontWeight: 'bold', color: '#63b3ed' },
+  searchBar: { width: '40%', padding: '8px 15px', borderRadius: '20px', border: '1px solid #2b6cb0', outline: 'none', fontSize: '14px' },
+  cartIcon: { fontSize: '16px', fontWeight: 'bold', color: '#fff' },
+  main: { display: 'flex', padding: '20px', gap: '20px', maxWidth: '1200px', margin: '0 auto', flexWrap: 'wrap' },
+  produkSection: { flex: 3, minWidth: '300px' },
+  sectionTitle: { color: '#1e40af', marginBottom: '20px' },
   grid: { display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '20px' },
-  card: { backgroundColor: '#fff', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 2px 5px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column', justifyContent: 'between' },
+  card: { backgroundColor: '#fff', borderRadius: '8px', overflow: 'hidden', boxShadow: '0 4px 6px rgba(0,0,0,0.05)', display: 'flex', flexDirection: 'column' },
   gambarProduk: { width: '100%', height: '180px', objectFit: 'cover' },
   cardBody: { padding: '12px', display: 'flex', flexDirection: 'column', flexGrow: 1 },
-  tokoText: { fontSize: '11px', color: '#777', margin: '0 0 5px 0' },
-  namaProduk: { fontSize: '14px', margin: '0 0 10px 0', height: '40px', overflow: 'hidden', color: '#333' },
-  hargaProduk: { fontWeight: 'bold', color: '#ee4d2d', margin: '0 0 15px 0' },
-  btnBeli: { backgroundColor: '#2ecc71', color: '#fff', border: 'none', padding: '8px', borderRadius: '4px', cursor: 'pointer', marginTop: 'auto', fontWeight: 'bold' },
-  sidebar: { flex: 1, backgroundColor: '#fff', padding: '20px', borderRadius: '8px', height: 'fit-content', boxShadow: '0 2px 5px rgba(0,0,0,0.05)', position: 'sticky', top: '90px' },
+  tokoText: { fontSize: '11px', color: '#2b6cb0', fontWeight: 'bold', margin: '0 0 5px 0' },
+  namaProduk: { fontSize: '14px', margin: '0 0 10px 0', height: '40px', overflow: 'hidden', color: '#333', lineHeight: '1.4' },
+  hargaProduk: { fontWeight: 'bold', color: '#dd6b20', margin: '0 0 15px 0', fontSize: '16px' }, 
+  btnBeli: { backgroundColor: '#3182ce', color: '#fff', border: 'none', padding: '10px', borderRadius: '6px', cursor: 'pointer', marginTop: 'auto', fontWeight: 'bold', transition: 'background 0.2s' },
+  sidebar: { flex: 1, minWidth: '280px', backgroundColor: '#fff', padding: '20px', borderRadius: '8px', height: 'fit-content', boxShadow: '0 4px 6px rgba(0,0,0,0.05)', position: 'sticky', top: '90px' },
+  sidebarTitle: { color: '#1e40af', margin: '0 0 15px 0' },
   listKeranjang: { maxHeight: '300px', overflowY: 'auto' },
   itemKeranjang: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '12px', fontSize: '13px' },
   aksiKeranjang: { display: 'flex', gap: '5px' },
-  btnMin: { backgroundColor: '#e74c3c', color: '#fff', border: 'none', padding: '2px 8px', borderRadius: '4px', cursor: 'pointer' },
-  btnPlus: { backgroundColor: '#2ecc71', color: '#fff', border: 'none', padding: '2px 8px', borderRadius: '4px', cursor: 'pointer' },
+  btnMin: { backgroundColor: '#e53e3e', color: '#fff', border: 'none', padding: '2px 8px', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' },
+  btnPlus: { backgroundColor: '#3182ce', color: '#fff', border: 'none', padding: '2px 8px', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' },
   totalSection: { display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '15px' },
-  btnCheckout: { width: '100%', backgroundColor: '#ee4d2d', color: '#fff', border: 'none', padding: '10px', borderRadius: '4px', fontWeight: 'bold', cursor: 'pointer' }
+  btnCheckout: { width: '100%', backgroundColor: '#2b6cb0', color: '#fff', border: 'none', padding: '12px', borderRadius: '6px', fontWeight: 'bold', cursor: 'pointer', fontSize: '14px' }
 };
 
 export default Dashboard;
-
-
